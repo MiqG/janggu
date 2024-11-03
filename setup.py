@@ -70,7 +70,7 @@ setup(
         'h5py',
         'pybedtools',
         'pydot',
-        'pysam<0.16,!=0.15.3',
+        'pysam',
         'pyBigWig',
         'progress',
         'matplotlib',
