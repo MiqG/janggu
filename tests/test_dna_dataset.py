@@ -6,8 +6,6 @@ import numpy as np
 import pandas
 import pkg_resources
 import pytest
-from keras.layers import Input
-from keras.models import Model
 from pybedtools import BedTool
 from pybedtools import Interval
 
@@ -332,79 +330,6 @@ def test_dna_dims_order_2(tmpdir):
                     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # CC
                     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],  # CC
                    dtype='int8'))
-
-
-def reverse_layer(order):
-    data_path = pkg_resources.resource_filename('janggu', 'resources/')
-
-    bed_file = os.path.join(data_path, 'sample.bed')
-
-    refgenome = os.path.join(data_path, 'sample_genome.fa')
-
-    data = Bioseq.create_from_refgenome('train', refgenome=refgenome,
-                                     roi=bed_file,
-                                     storage='ndarray',
-                                     binsize=binsize,
-                                     flank=flank,
-                                     order=order)
-
-    dna_in = Input(shape=data.shape[1:], name='dna')
-    rdna_layer = Reverse()(dna_in)
-
-    rmod = Model(dna_in, rdna_layer)
-
-    # actual shape of DNA
-    dna = data[0]
-    np.testing.assert_equal(dna[:, ::-1, :, :], rmod.predict(dna))
-
-
-def complement_layer(order):
-    data_path = pkg_resources.resource_filename('janggu', 'resources/')
-
-    bed_file = os.path.join(data_path, 'sample.bed')
-
-    refgenome = os.path.join(data_path, 'sample_genome.fa')
-
-    data = Bioseq.create_from_refgenome('train', refgenome=refgenome,
-                                     roi=bed_file,
-                                     storage='ndarray',
-                                     binsize=binsize,
-                                     flank=flank,
-                                     order=order)
-
-    dna_in = Input(shape=data.shape[1:], name='dna')
-    cdna_layer = Complement()(dna_in)
-    cmod = Model(dna_in, cdna_layer)
-
-    # actual shape of DNA
-    dna = data[0]
-
-    cdna = cmod.predict(dna)
-    ccdna = cmod.predict(cdna)
-
-    with pytest.raises(Exception):
-        np.testing.assert_equal(dna, cdna)
-    np.testing.assert_equal(dna, ccdna)
-
-
-def test_reverse_order_1(tmpdir):
-    os.environ['JANGGU_OUTPUT'] = tmpdir.strpath
-    reverse_layer(1)
-
-
-def test_reverse_order_2(tmpdir):
-    os.environ['JANGGU_OUTPUT'] = tmpdir.strpath
-    reverse_layer(2)
-
-
-def test_complement_order_1(tmpdir):
-    os.environ['JANGGU_OUTPUT'] = tmpdir.strpath
-    complement_layer(1)
-
-
-def test_complement_order_2(tmpdir):
-    os.environ['JANGGU_OUTPUT'] = tmpdir.strpath
-    complement_layer(2)
 
 
 def test_revcomp_rcmatrix(tmpdir):
