@@ -14,6 +14,10 @@ pip install git+https://github.com/MiqG/janggu.git
 Based on tutorial: https://nbviewer.org/github/BIMSBbioinfo/janggu/blob/master/src/examples/pytorch_convnet_example.ipynb
 
 ```{python}
+import os
+os.environ['JANGGU_OUTPUT'] = './janggu_tmp'
+
+from pkg_resources import resource_filename
 from janggu.data import Bioseq, Cover
 
 # files
