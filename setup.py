@@ -31,7 +31,7 @@ setup(
     description='Utilities and datasets for deep learning in genomics',
     long_description='%s\n%s' % (
         re.compile('^.. start-badges.*^.. end-badges',
-                   re.M | re.S).sub('', _read('README.rst')),
+                   re.M | re.S).sub('', _read('README.md')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', _read('CHANGELOG.rst'))
     ),
     long_description_content_type='text/x-rst',
