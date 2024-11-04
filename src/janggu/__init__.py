@@ -1,8 +1,8 @@
 """Janggu model and utilities for deep learning in genomics."""
 
-from janggu.decorators import inputlayer  # noqa
-from janggu.decorators import outputconv  # noqa
-from janggu.decorators import outputdense  # noqa
+# from janggu.decorators import inputlayer  # noqa
+# from janggu.decorators import outputconv  # noqa
+# from janggu.decorators import outputdense  # noqa
 from janggu.evaluation import Scorer  # noqa
 #from janggu.layers import Complement  # noqa
 #from janggu.layers import DnaConv2D  # noqa
