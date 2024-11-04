@@ -377,6 +377,8 @@ class BedLoader:
                     score = float(region.fields[-1])
                 elif mode == 'score':
                     score = int(region.score)
+                elif mode == 'score_float':
+                    score = float(region.score)
                 elif mode == 'binary':
                     score = 1
                 elif mode in ['categorical', 'score_category']:
