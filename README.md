@@ -60,3 +60,6 @@ print('training set:', DNA_TRAIN.shape, LABELS_TRAIN.shape)
 ```{shell}
 training set: (104, 15000, 1, 4) (104, 1, 1, 1)
 ```
+
+## additional features compared to original repository
+- mode='score_float' in Cover.create_from_bed, in order to have a float as the score of a bed file.
